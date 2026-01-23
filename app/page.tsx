@@ -287,7 +287,7 @@ export default function Home() {
                 className="flex-shrink-0 w-80 h-56 rounded-lg object-cover opacity-80"
               />
               <img
-                src="/images/photo17.HEIC"
+                src="/images/photo17.jpg"
                 alt=""
                 className="flex-shrink-0 w-72 h-52 rounded-lg object-cover opacity-80"
               />
@@ -307,7 +307,7 @@ export default function Home() {
                 We are
               </p>
               {/* Logo */}
-              <div className="w-48 h-48 md:w-64 md:h-64 flex items-center justify-center overflow-hidden">
+              <div className="w-48 h-48 md:w-120 md:h-120 flex items-center justify-center overflow-hidden">
                 <img
                   src="/images/logo.png"
                   alt="Healthen Group Logo"
