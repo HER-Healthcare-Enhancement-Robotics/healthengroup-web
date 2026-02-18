@@ -287,8 +287,7 @@ export default function Home() {
                 className="flex-shrink-0 w-80 h-56 rounded-lg object-cover opacity-80"
               />
               <img
-                src="/images/photo17.jpg"
-                alt=""
+                src="https://healthen-images.s3.us-east-1.amazonaws.com/photo17.jpg"
                 className="flex-shrink-0 w-72 h-52 rounded-lg object-cover opacity-80"
               />
               <img
@@ -366,7 +365,7 @@ export default function Home() {
                   <div className="h-full flex items-center justify-center text-6xl">
                     👥
                   </div>
-                  <div className="absolute inset-0 bg-blue-900 bg-opacity-0 group-hover:bg-opacity-20 transition-all rounded-2xl flex items-center justify-center">
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all rounded-2xl flex items-center justify-center">
                     <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity text-xl font-semibold">
                       Click to see our divisions
                     </span>
@@ -423,82 +422,81 @@ export default function Home() {
             Our Team
           </h2>
 
-          {/* Team photo with gradient buttons */}
-          <div className="relative mb-20 w-full h-[400px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl bg-gray-200">
-            {/* <img
-              src="/images/photo4.jpg"
-              alt="Healthen Team"
-              className="w-full h-full object-cover"
-            /> */}
-            {teamPositions.map((pos, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedMember(index)}
-                className="team-btn absolute w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-white text-[7px] sm:text-[8px] md:text-[10px] transition-all shadow-lg hover:scale-110 z-10 bg-gradient-to-r from-blue-500 to-pink-500 pulse-animation text-center leading-tight"
-                style={{ left: pos.left, top: pos.top }}
-              >
-                {teamMembers[index].role}
-              </button>
-            ))}
-          </div>
-
-          {/* Team Member Details */}
-          {selectedMember !== null && (
-            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-3xl border-2 border-pink-200">
-              <div className="flex justify-between items-start mb-6">
-                <div>
-                  <h3 className="text-3xl font-bold text-blue-900">
-                    {teamMembers[selectedMember].name}
-                  </h3>
-                  <p className="text-xl text-pink-500">
-                    {teamMembers[selectedMember].role}
-                  </p>
-                </div>
+          {/* Team photo with gradient buttons + details side by side */}
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+            <div className={`relative h-[400px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl bg-gray-200 transition-all duration-500 ${
+              selectedMember !== null ? "w-full md:w-3/5" : "w-full"
+            }`}>
+              {teamPositions.map((pos, index) => (
                 <button
-                  onClick={() => setSelectedMember(null)}
-                  className="text-gray-400 hover:text-gray-600"
+                  key={index}
+                  onClick={() => setSelectedMember(index)}
+                  className="team-btn absolute w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-white text-[7px] sm:text-[8px] md:text-[10px] transition-all shadow-lg hover:scale-110 z-10 bg-gradient-to-r from-blue-500 to-pink-500 pulse-animation text-center leading-tight"
+                  style={{ left: pos.left, top: pos.top }}
                 >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
+                  {teamMembers[index].role}
                 </button>
-              </div>
-              <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                {teamMembers[selectedMember].experience}
-              </p>
-              <div className="flex gap-4">
-                <a
-                  href={`${teamMembers[selectedMember].linkedin}`}
-                  className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
-                >
-                  <svg
-                    className="w-6 h-6 text-[#0077b5] dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z"
-                      clipRule="evenodd"
-                    />
-                    <path d="M7.2 8.809H4V19.5h3.2V8.809Z" />
-                  </svg>
-                </a>
-              </div>
+              ))}
             </div>
-          )}
+
+            {/* Team Member Details */}
+            {selectedMember !== null && (
+              <div className="w-full md:w-2/5 bg-white rounded-2xl shadow-2xl p-8 border-2 border-pink-200 md:sticky md:top-20">
+                <div className="flex justify-between items-start mb-6">
+                  <div>
+                    <h3 className="text-3xl font-bold text-blue-900">
+                      {teamMembers[selectedMember].name}
+                    </h3>
+                    <p className="text-xl text-pink-500">
+                      {teamMembers[selectedMember].role}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setSelectedMember(null)}
+                    className="text-gray-400 hover:text-gray-600"
+                  >
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <p className="text-gray-700 text-lg mb-6 leading-relaxed">
+                  {teamMembers[selectedMember].experience}
+                </p>
+                <div className="flex gap-4">
+                  <a
+                    href={`${teamMembers[selectedMember].linkedin}`}
+                    className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
+                  >
+                    <svg
+                      className="w-6 h-6 text-[#0077b5] dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z"
+                        clipRule="evenodd"
+                      />
+                      <path d="M7.2 8.809H4V19.5h3.2V8.809Z" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
