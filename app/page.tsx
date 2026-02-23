@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useS3Images } from "./hooks/useS3Images";
 
 const teamMembers = [
   {
@@ -24,7 +25,7 @@ const teamMembers = [
       "Backend developer with robotics expertise, focused on autonomous systems and scalable services.",
     linkedin: "https://www.linkedin.com/in/mario-aguirre-9868d/",
   },
-  
+
   {
     name: "Javier de Golferichs",
     role: "CFO",
@@ -94,6 +95,24 @@ export default function Home() {
   const handleMenuClick = (sectionId: string) => {
     setMenuOpen(false);
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const { images: heroImages, loading: heroLoading } = useS3Images("hero");
+
+  const row1 = heroImages.slice(0, Math.ceil(heroImages.length / 3));
+  const row2 = heroImages.slice(
+    Math.ceil(heroImages.length / 3),
+    Math.ceil((heroImages.length * 2) / 3),
+  );
+  const row3 = heroImages.slice(Math.ceil((heroImages.length * 2) / 3));
+
+  const { images: momentImages, loading: momentsLoading } =
+    useS3Images("moments");
+
+  const momentCaptions: Record<number, string> = {
+    0: "First lab setup - Beginning our robotics research",
+    1: "Team collaboration on AI algorithms",
+    2: "Celebrating our first client project",
   };
 
   return (
@@ -176,6 +195,7 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
+
       <section
         id="home"
         className="relative min-h-screen flex items-center bg-white px-8 overflow-hidden"
@@ -188,36 +208,14 @@ export default function Home() {
               className="flex gap-40 animate-scroll-left"
               style={{ animationDuration: "50s" }}
             >
-              <img
-                src="/images/photo1.jpg"
-                alt=""
-                className="flex-shrink-0 w-56 h-40 rounded-lg object-cover opacity-60"
-              />
-              <img
-                src="/images/photo2.jpg"
-                alt=""
-                className="flex-shrink-0 w-60 h-44 rounded-lg object-cover opacity-60"
-              />
-              <img
-                src="/images/photo3.jpg"
-                alt=""
-                className="flex-shrink-0 w-52 h-36 rounded-lg object-cover opacity-60"
-              />
-              <img
-                src="/images/photo4.jpg"
-                alt=""
-                className="flex-shrink-0 w-56 h-40 rounded-lg object-cover opacity-60"
-              />
-              <img
-                src="/images/photo5.jpg"
-                alt=""
-                className="flex-shrink-0 w-60 h-44 rounded-lg object-cover opacity-60"
-              />
-              <img
-                src="/images/photo6.jpg"
-                alt=""
-                className="flex-shrink-0 w-52 h-36 rounded-lg object-cover opacity-60"
-              />
+              {[...row1, ...row1].map((url, i) => (
+                <img
+                  key={i}
+                  src={url}
+                  alt=""
+                  className="flex-shrink-0 w-56 h-40 rounded-lg object-cover opacity-60"
+                />
+              ))}
             </div>
           </div>
 
@@ -227,36 +225,14 @@ export default function Home() {
               className="flex gap-48 animate-scroll-left"
               style={{ animationDuration: "35s", animationDelay: "2s" }}
             >
-              <img
-                src="/images/photo7.jpg"
-                alt=""
-                className="flex-shrink-0 w-40 h-28 rounded-lg object-cover opacity-70"
-              />
-              <img
-                src="/images/photo8.jpg"
-                alt=""
-                className="flex-shrink-0 w-36 h-24 rounded-lg object-cover opacity-70"
-              />
-              <img
-                src="/images/photo9.jpg"
-                alt=""
-                className="flex-shrink-0 w-40 h-28 rounded-lg object-cover opacity-70"
-              />
-              <img
-                src="/images/photo10.jpg"
-                alt=""
-                className="flex-shrink-0 w-40 h-28 rounded-lg object-cover opacity-70"
-              />
-              <img
-                src="/images/photo11.jpg"
-                alt=""
-                className="flex-shrink-0 w-36 h-24 rounded-lg object-cover opacity-70"
-              />
-              <img
-                src="/images/photo12.jpg"
-                alt=""
-                className="flex-shrink-0 w-40 h-28 rounded-lg object-cover opacity-70"
-              />
+              {[...row2, ...row2].map((url, i) => (
+                <img
+                  key={i}
+                  src={url}
+                  alt=""
+                  className="flex-shrink-0 w-40 h-28 rounded-lg object-cover opacity-70"
+                />
+              ))}
             </div>
           </div>
 
@@ -266,35 +242,14 @@ export default function Home() {
               className="flex gap-36 animate-scroll-left"
               style={{ animationDuration: "25s", animationDelay: "4s" }}
             >
-              <img
-                src="/images/photo13.jpg"
-                alt=""
-                className="flex-shrink-0 w-80 h-56 rounded-lg object-cover opacity-80"
-              />
-              <img
-                src="/images/photo1.jpg"
-                alt=""
-                className="flex-shrink-0 w-72 h-52 rounded-lg object-cover opacity-80"
-              />
-              <img
-                src="/images/photo15.jpg"
-                alt=""
-                className="flex-shrink-0 w-80 h-56 rounded-lg object-cover opacity-80"
-              />
-              <img
-                src="/images/photo16.jpg"
-                alt=""
-                className="flex-shrink-0 w-80 h-56 rounded-lg object-cover opacity-80"
-              />
-              <img
-                src="https://healthen-images.s3.us-east-1.amazonaws.com/photo17.jpg"
-                className="flex-shrink-0 w-72 h-52 rounded-lg object-cover opacity-80"
-              />
-              <img
-                src="/images/photo1.jpg"
-                alt=""
-                className="flex-shrink-0 w-80 h-56 rounded-lg object-cover opacity-80"
-              />h
+              {[...row3, ...row3].map((url, i) => (
+                <img
+                  key={i}
+                  src={url}
+                  alt=""
+                  className="flex-shrink-0 w-80 h-56 rounded-lg object-cover opacity-80"
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -310,7 +265,7 @@ export default function Home() {
                 <img
                   src="/images/logo.png"
                   alt="Healthen Group Logo"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
                 />
               </div>
               <p className="text-sm uppercase tracking-widest text-black">
@@ -424,9 +379,11 @@ export default function Home() {
 
           {/* Team photo with gradient buttons + details side by side */}
           <div className="flex flex-col md:flex-row gap-8 items-start">
-            <div className={`relative h-[400px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl bg-gray-200 transition-all duration-500 ${
-              selectedMember !== null ? "w-full md:w-3/5" : "w-full"
-            }`}>
+            <div
+              className={`relative h-[400px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl bg-gray-200 transition-all duration-500 ${
+                selectedMember !== null ? "w-full md:w-3/5" : "w-full"
+              }`}
+            >
               {teamPositions.map((pos, index) => (
                 <button
                   key={index}
@@ -523,75 +480,76 @@ export default function Home() {
             </div>
 
             {/* Carousel */}
-            <div className="relative">
-              <div className="overflow-hidden rounded-2xl shadow-2xl">
-                <div
-                  className="flex transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateX(-${carouselIndex * 100}%)` }}
-                >
-                  {[
-                    {
-                      image: "/images/photo11.jpg",
-                      caption:
-                        "First lab setup - Beginning our robotics research",
-                    },
-                    {
-                      image: "/images/photo1.jpg",
-                      caption: "Team collaboration on AI algorithms",
-                    },
-                    {
-                      image: "/images/photo7.jpg",
-                      caption: "Celebrating our first client project",
-                    },
-                  ].map((slide, index) => (
-                    <div
-                      key={index}
-                      className="min-w-full aspect-video relative group cursor-pointer"
-                    >
-                      <img
-                        src={slide.image}
-                        alt={slide.caption}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0  group-hover:bg-opacity-70 transition-all flex items-center justify-center">
-                        <p className="text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity px-8 text-center">
-                          {slide.caption}
-                        </p>
+            {momentsLoading ? (
+              <div className="aspect-video flex items-center justify-center bg-gray-100 rounded-2xl">
+                <p className="text-gray-400 text-lg">Loading moments...</p>
+              </div>
+            ) : (
+              <div className="relative">
+                <div className="overflow-hidden rounded-2xl shadow-2xl">
+                  <div
+                    className="flex transition-transform duration-500 ease-in-out"
+                    style={{
+                      transform: `translateX(-${carouselIndex * 100}%)`,
+                    }}
+                  >
+                    {momentImages.map((url, index) => (
+                      <div
+                        key={index}
+                        className="min-w-full aspect-video relative group cursor-pointer"
+                      >
+                        <img
+                          src={url}
+                          alt={momentCaptions[index] ?? ""}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                          <p className="text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity px-8 text-center">
+                            {momentCaptions[index] ?? ""}
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Navigation arrows */}
+                <button
+                  onClick={() =>
+                    setCarouselIndex(
+                      (prev) =>
+                        (prev - 1 + momentImages.length) % momentImages.length,
+                    )
+                  }
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110"
+                >
+                  <span className="text-2xl text-gray-800">←</span>
+                </button>
+                <button
+                  onClick={() =>
+                    setCarouselIndex((prev) => (prev + 1) % momentImages.length)
+                  }
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110"
+                >
+                  <span className="text-2xl text-gray-800">→</span>
+                </button>
+
+                {/* Dots indicator */}
+                <div className="flex justify-center gap-2 mt-6">
+                  {momentImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCarouselIndex(index)}
+                      className={`h-3 rounded-full transition-all ${
+                        carouselIndex === index
+                          ? "bg-pink-500 w-8"
+                          : "bg-gray-300 w-3"
+                      }`}
+                    />
                   ))}
                 </div>
               </div>
-
-              {/* Navigation arrows */}
-              <button
-                onClick={() => setCarouselIndex((prev) => (prev - 1 + 3) % 3)}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110"
-              >
-                <span className="text-2xl text-gray-800">←</span>
-              </button>
-              <button
-                onClick={() => setCarouselIndex((prev) => (prev + 1) % 3)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110"
-              >
-                <span className="text-2xl text-gray-800">→</span>
-              </button>
-
-              {/* Dots indicator */}
-              <div className="flex justify-center gap-2 mt-6">
-                {[0, 1, 2].map((index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCarouselIndex(index)}
-                    className={`h-3 rounded-full transition-all ${
-                      carouselIndex === index
-                        ? "bg-pink-500 w-8"
-                        : "bg-gray-300 w-3"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </section>
