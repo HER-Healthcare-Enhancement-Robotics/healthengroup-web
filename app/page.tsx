@@ -257,20 +257,14 @@ export default function Home() {
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
             <div className="flex flex-col items-center md:items-start">
-              <p className="text-sm uppercase tracking-widest text-black mb-4">
-                We are
-              </p>
               {/* Logo */}
-              <div className="w-48 h-48 md:w-120 md:h-120 flex items-center justify-center overflow-hidden">
+              <div className="relative w-48 h-48 md:w-150 md:h-150 flex items-center justify-center overflow-hidden before:content-[''] before:absolute before:inset-0 before:rounded-full  before:bg-[radial-gradient(circle,rgba(255,255,255,0.95)_0%,rgba(255,255,255,0.6)_40%,rgba(255,255,255,0)_75%)]  before:blur-2xl before:-z-10">
                 <img
                   src="/images/logo.png"
                   alt="Healthen Group Logo"
                   className="w-full h-full object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
                 />
               </div>
-              <p className="text-sm uppercase tracking-widest text-black">
-                Creatively Engineered
-              </p>
             </div>
           </div>
         </div>
